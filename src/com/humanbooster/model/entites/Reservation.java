@@ -12,14 +12,14 @@ public class Reservation {
     Date datefin;
     StatutReservation statut;
 
-    public Reservation(Date datedebut, Date datefin, int idborne, int idutilisateur, StatutReservation statut) {
+    public Reservation(Date datedebut, Date datefin, int idborne, int idutilisateur) {
         this.datedebut = datedebut;
         this.datefin = datefin;
         this.idborne = idborne;
         this.idutilisateur = idutilisateur;
         this.id = nextid;
         nextid++;
-        this.statut = statut;
+        this.statut = StatutReservation.EN_ATTENTE;
     }
 
     public StatutReservation getStatut() {

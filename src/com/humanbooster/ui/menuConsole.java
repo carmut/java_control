@@ -4,11 +4,15 @@ import com.humanbooster.exceptions.CompteNonValideException;
 import com.humanbooster.exceptions.IdentifiantsIncorrectsException;
 import com.humanbooster.model.entites.BorneRecharge;
 import com.humanbooster.model.entites.LieuRecharge;
+import com.humanbooster.model.entites.Reservation;
 import com.humanbooster.model.entites.Utilisateur;
 import com.humanbooster.model.enumerations.EtatBorne;
 import com.humanbooster.services.listBorne;
 import com.humanbooster.services.listLieu;
+import com.humanbooster.services.listReservation;
 import com.humanbooster.services.listeUser;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,6 +22,7 @@ public class menuConsole {
     static listLieu listelieux = new listLieu();
     static listeUser listeUsers = new listeUser();
     static listBorne listBornes = new listBorne();
+    static listReservation listReservation = new listReservation();
     static Utilisateur userconnected;
 
     /**
@@ -141,6 +146,17 @@ public class menuConsole {
         System.out.println(strborne.toString());
         System.out.println("vueillez choisir la borne avec l'id : ");
         int IDborne = input.nextInt();
+        
+        System.out.println("vueillez renseigner la date de debut au format yyyy-MM-dd : ");
+        String datedebutstring = input.next();
+
+        System.out.println("vueillez renseigner la date de fin au format yyyy-MM-dd : ");
+        String datefinstring = input.next();
+
+        DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Reservation reservation = new Reservation((Date) dateformatter.parse(datedebutstring), (Date) dateformatter.parse(datefinstring), IDborne, userconnected.getId());
+        
+        listReservation.addReservation(reservation);
         nav();
     }
 

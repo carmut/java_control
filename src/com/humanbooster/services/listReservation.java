@@ -16,8 +16,8 @@ public class listReservation {
         return listReservation;
     }
 
-    public void setListReservation(List<Reservation> listReservation) {
-        this.listReservation = listReservation;
+    public void addReservation(Reservation Reservation) {
+        this.listReservation.add(Reservation);
     }
 
     
