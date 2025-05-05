@@ -1,5 +1,6 @@
 package com.humanbooster.model.entites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LieuRecharge {
@@ -13,6 +14,7 @@ public class LieuRecharge {
         this.nom = nom;
         this.adresse = adresse;
         this.id = nextIDlieu;
+        bornes = new ArrayList<>();
         nextIDlieu++;
     }
 
@@ -40,7 +42,7 @@ public class LieuRecharge {
         return bornes;
     }
 
-    public void setBornes(BorneRecharge borne) {
+    public void addBornes(BorneRecharge borne) {
         this.bornes.add(borne);
     }
 
