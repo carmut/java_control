@@ -7,6 +7,7 @@ import com.humanbooster.model.entites.LieuRecharge;
 import com.humanbooster.model.entites.Reservation;
 import com.humanbooster.model.entites.Utilisateur;
 import com.humanbooster.model.enumerations.EtatBorne;
+import com.humanbooster.model.enumerations.StatutReservation;
 import com.humanbooster.services.listBorne;
 import com.humanbooster.services.listLieu;
 import com.humanbooster.services.listReservation;
@@ -115,7 +116,7 @@ public class menuConsole {
         String password = input.next();
         input.nextLine();
         try {
-            if(user.signin(mail, password)){
+            if (user.signin(mail, password)) {
                 userconnected = user;
             }
         } catch (IdentifiantsIncorrectsException | CompteNonValideException e) {
@@ -146,7 +147,7 @@ public class menuConsole {
         System.out.println(strborne.toString());
         System.out.println("vueillez choisir la borne avec l'id : ");
         int IDborne = input.nextInt();
-        
+
         System.out.println("vueillez renseigner la date de debut au format yyyy-MM-dd : ");
         String datedebutstring = input.next();
 
@@ -155,7 +156,7 @@ public class menuConsole {
 
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Reservation reservation = new Reservation((Date) dateformatter.parse(datedebutstring), (Date) dateformatter.parse(datefinstring), IDborne, userconnected.getId());
-        
+
         listReservation.addReservation(reservation);
         nav();
     }
@@ -165,6 +166,70 @@ public class menuConsole {
      */
     public static void gererReservation() {
         Scanner input = new Scanner(System.in);
+        List<Reservation> listreservation = listReservation.getListReservation();
+        StringBuilder strreservation = new StringBuilder();
+        for (Reservation reservation : listreservation) {
+            strreservation.append("id :")
+                    .append(reservation.getId())
+                    .append("date debut :")
+                    .append(reservation.getDatedebut())
+                    .append("date fin :")
+                    .append(reservation.getDatefin())
+                    .append("statut :")
+                    .append(reservation.getStatut())
+                    .append("ID utilisateur :")
+                    .append(reservation.getIdutilisateur())
+                    .append("ID borne :")
+                    .append(reservation.getIdborne());
+            System.out.println(strreservation.toString());
+        }
+        System.out.println("vueillez choisir la reservation avec son id :");
+        int IDreservation = input.nextInt();
+
+        System.out.println("1 : modifier :");
+        System.out.println("2 : supprimer :");
+        System.out.println("3 : valider | refuser :");
+        System.out.println("que voulez vous faire :");
+        int choixmodifreser = input.nextInt();
+
+        Reservation reservationchoisi = null;
+        for (Reservation resertemp : listreservation) {
+            if (resertemp.getId() == IDreservation) {
+                reservationchoisi = resertemp;
+                break;
+            }
+        }
+        strreservation.append("id :")
+                .append(reservationchoisi.getId())
+                .append("1 : date debut :")
+                .append(reservationchoisi.getDatedebut())
+                .append("1 : date fin :")
+                .append(reservationchoisi.getDatefin())
+                .append("1 : statut :")
+                .append(reservationchoisi.getStatut())
+                .append("1 : ID utilisateur :")
+                .append(reservationchoisi.getIdutilisateur())
+                .append("1 : ID borne :")
+                .append(reservationchoisi.getIdborne());
+        System.out.println(strreservation.toString());
+        //modifier la reservation
+        if (choixmodifreser == 1) {
+
+            System.out.println("que voulez vous modifier ? :");
+        }
+
+        //supprimer
+        if (choixmodifreser == 2) {
+            //remove de la liste
+        }
+
+        //valider | refuser
+        if (choixmodifreser == 3 && reservationchoisi.getStatut() == StatutReservation.EN_ATTENTE) {
+            strreservation.append("1 : accepter la reservation")
+                    .append("2 : refusé la reservation ");
+            System.out.println(strreservation.toString());
+        }
+
         nav();
     }
 
